@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 # Bundle app source
-COPY . ./
+COPY .. ./
 #COPY config/ config/
 
 EXPOSE 3000
