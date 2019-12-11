@@ -7,11 +7,11 @@ RUN echo | date
 WORKDIR /usr/src/app/
 
 # Install app dependencies
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm ci --only=production
 
 # Bundle app source
-COPY . .
+COPY . ./
 #COPY config/ config/
 
 EXPOSE 3000
