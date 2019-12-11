@@ -7,7 +7,7 @@ async function main() {
     const bodyParser = require('body-parser');
     const cors = require('cors');
     const app = express();
-    const apiPort = 3000;
+    const apiPort = process.env.PORT || 3000;
     let router = require('./routes/router');
 
     app.use(bodyParser.urlencoded({extended: true}));
