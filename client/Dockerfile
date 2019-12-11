@@ -12,7 +12,6 @@ RUN npm install react-scripts@2.1.5 -g
 COPY . /usr/src/app
 
 RUN npm install && \
-    npm run import-install && \
     npm install --only=production && \
     npm prune --production && \
     npm run build
