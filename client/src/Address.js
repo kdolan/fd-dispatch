@@ -52,5 +52,5 @@ class Address extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyDh5NNazPV5x7h2yO7OvH3yKU20cHX8Tmw'
+    apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 })(Address);
