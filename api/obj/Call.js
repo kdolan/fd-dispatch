@@ -1,0 +1,17 @@
+const Location = require('./Location').Location;
+
+class Call{
+    constructor({id=null, type, department, determinant, location=null, dateTime=new Date(), units=[], attachments=[], notes=""}){
+        this.id = id;
+        this.type = type;
+        this.department = department;
+        this.determinant = determinant;
+        this.location = location ? new Location(location) : null;
+        this.dateTime = new Date(dateTime);
+        this.units = units;
+        this.attachments = attachments;
+        this.notes = notes;
+    }
+}
+
+module.exports.Call = Call;

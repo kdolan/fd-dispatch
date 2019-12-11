@@ -1,6 +1,6 @@
 const connectDb = require('./store').connect;
 
-async function main() {
+async function main(callback) {
     const db = await connectDb();
 
     const express = require('express');
@@ -16,6 +16,8 @@ async function main() {
     router.configureRoutes(app);
 
     app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+    if(callback)
+        callback(app);
 }
 
 module.exports = main;

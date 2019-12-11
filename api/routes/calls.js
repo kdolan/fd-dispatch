@@ -6,7 +6,8 @@ let router = express.Router();
 let path = require('path');
 
 let controller = require('../controllers/calls.controller');
-router.get('/', controller.insertCallRoute);
+router.post('/', controller.insertCallRoute);
+router.get('/', controller.getCallsRoute);
 
 
 module.exports = router;
