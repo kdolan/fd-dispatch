@@ -1,0 +1,7 @@
+      - name: Checkout the repository
+        uses: actions/checkout@v1
+
+      - name: Build Docker images
+        run: |
+          docker build ./api/ --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api
+          docker build ./client/ --build-arg REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.MAPS_API_KEY }} --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client
