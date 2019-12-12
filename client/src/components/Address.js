@@ -1,13 +1,9 @@
 import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import {
-    geocodeByAddress,
-    geocodeByPlaceId,
-    getLatLng,
-} from 'react-places-autocomplete';
 import React from "react";
 import LocationSearchInput from "./LocationSearchInput";
+import PropTypes from 'prop-types';
 import {Form, Row, Col, FormGroup, Label, Input} from "reactstrap";
+import UnitsSelect from "./UnitsSelect";
 
 const mapStyles = {
     width: '100%',
@@ -15,25 +11,26 @@ const mapStyles = {
 };
 
 class Address extends React.Component {
-    state = {
-        address: "",
-        location: null
-    };
+    handleAddressSelect({address, location}){
+        this.props.handleAddressSelect({address, location});
+    }
 
-    getMarket(){
-        if(!this.state.location)
+    getMarker(){
+        const call = this.props.call;
+        if(!call.location)
             return null;
-        return <Marker position={{lat: this.state.location.latitude, lng: this.state.location.longitude}} title={this.state.address}/>
+        return <Marker position={{lat: call.location.latitude, lng: call.location.longitude}} title={call.address}/>
     }
 
     render() {
+        const call = this.props.call;
         return (
             <div>
                 <Row>
-                    <LocationSearchInput onSelect={({address, location}) => this.setState({address, location})}/>
+                    <LocationSearchInput onSelect={({address, location}) => this.handleAddressSelect({address, location})}/>
                 </Row>
                 <Row>
-                    Address: {this.state.address}
+                    Address: {call.address}
                 </Row>
                 <Row>
                     <div style={{height: "50px"}}>
@@ -42,7 +39,7 @@ class Address extends React.Component {
                             zoom={12}
                             initialCenter={{lat: 42.8006441, lng: -71.3042}}
                         >
-                            {this.getMarket()}
+                            {this.getMarker()}
                         </Map>
                     </div>
                 </Row>
@@ -50,6 +47,11 @@ class Address extends React.Component {
         );
     }
 }
+
+Address.propTypes = {
+    handleAddressSelect: PropTypes.func.isRequired,
+    call: PropTypes.object.isRequired,
+};
 
 export default GoogleApiWrapper({
     apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY

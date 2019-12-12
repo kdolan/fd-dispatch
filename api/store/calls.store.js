@@ -9,7 +9,7 @@ function objArrayFromMongo(array){
 async function createCall(call) {
     if(!(call instanceof Call))
         throw new Error("Must be instanceof Call");
-    const dbRes = await callsCollection.insertOne(call);
+    const dbRes = await callsCollection.insertOne(call.getForDb());
     call.id = dbRes.insertedId.toString();
     console.log(`Inserted new call with ID ${call.id}`);
     return call;

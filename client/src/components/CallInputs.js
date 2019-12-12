@@ -1,8 +1,8 @@
 import React from "react";
 import {Form, Row, Col, FormGroup, Label, Input} from "reactstrap";
 import {DateTimePicker} from "@material-ui/pickers";
-import Multiselect from "react-bootstrap-multiselect";
 import PropTypes from 'prop-types';
+import UnitsSelect from "./UnitsSelect";
 
 class CallInputs extends React.Component {
     handleMultiSelectChange(e){
@@ -69,23 +69,11 @@ class CallInputs extends React.Component {
 
                 </Row>
 
+                <UnitsSelect call={call} handleChange={handleChange}/>
+
                 <FormGroup>
-                    <Label for="units">Units</Label>
-                    <Input type="select" name="units" id="units" style={{height: "200px"}} multiple onChange={(e) => this.handleMultiSelectChange(e)}>
-                        <option>WFD A1</option>
-                        <option>WFD A2</option>
-                        <option>WFD E1</option>
-                        <option>WFD E2</option>
-                        <option>WFD E3</option>
-                        <option>WFD L1</option>
-                        <option>WFD T1</option>
-                        <option>WFD T2</option>
-                        <option>WFD U1</option>
-                        <option>WFD F1</option>
-                        <option>WFD C1</option>
-                        <option>WFD C2</option>
-                        <option>WFD C3</option>
-                    </Input>
+                    <Label for="notes">Text Area</Label>
+                    <Input type="textarea" name="notes" id="notes" value={call.notes} onChange={handleChange}/>
                 </FormGroup>
             </div>
         );
