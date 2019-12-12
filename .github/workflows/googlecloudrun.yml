@@ -26,7 +26,7 @@ jobs:
           PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}
           APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_AUTH}}
         with:
-          args: run deploy fd-dispatch-client   --image gcr.io/{{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
+          args: run deploy fd-dispatch-client   --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
       
       - name: Deploy API to Cloud Run
         uses: actions-hub/gcloud@master
@@ -34,4 +34,4 @@ jobs:
           PROJECT_ID: fd-dispatch-1576071994716
           APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_AUTH}}
         with:
-          args: run deploy fd-dispatch-api   --image gcr.io/{{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
+          args: run deploy fd-dispatch-api   --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
