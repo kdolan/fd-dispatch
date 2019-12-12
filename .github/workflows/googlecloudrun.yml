@@ -1,0 +1,49 @@
+name: Deploy the application to Google Cloud Run
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  deploy:
+    name: Deploy job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v1
+
+      - name: Build Docker images
+        run: |
+          docker build ./api/ --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api
+          docker build ./client/ --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client
+      - name: Authenticate into Google Cloud Platform
+        uses: actions/gcloud/auth@master
+        env:
+          GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Configure Docker to use Google Cloud Platform
+        uses: actions/gcloud/cli@master
+        with:
+          args: "auth configure-docker --quiet"
+
+      - name: Push cleint image to Google Cloud Container Registry
+        uses: actions/gcloud/cli@master
+        with:
+          entrypoint: sh
+          args: -c "docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client"
+          
+      - name: Push api image to Google Cloud Container Registry
+        uses: actions/gcloud/cli@master
+        with:
+          entrypoint: sh
+          args: -c "docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api"
+          
+      - name: Install beta commands and deploy client to cloud run
+        uses: actions/gcloud/cli@master
+        with:
+          args: "components install beta --quiet && gcloud beta run deploy fd-dispatch-client --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client --project ${{ secrets.GCLOUD_PROJECT }} --region us-central1 --platform managed --allow-unauthenticated"
+          
+      - name: Install beta commands and deploy api to cloud run
+        uses: actions/gcloud/cli@master
+        with:
+          args: "components install beta --quiet && gcloud beta run deploy fd-dispatch-api --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }} --region us-central1 --platform managed --allow-unauthenticated"
