@@ -15,7 +15,7 @@ jobs:
       - name: Build Docker images
         run: |
           docker build ./api/ --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api
-          docker build ./client/ --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client
+          docker build ./client/ --build-arg REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.MAPS_API_KEY }} --tag gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client
       - name: Authenticate into Google Cloud Platform
         uses: actions/gcloud/auth@master
         env:

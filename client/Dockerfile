@@ -11,6 +11,8 @@ RUN npm install react-scripts@2.1.5 -g
 
 COPY . /usr/src/app
 
+ARG REACT_APP_GOOGLE_MAPS_API_KEY
+
 RUN npm install && \
     npm install --only=production && \
     npm prune --production && \
