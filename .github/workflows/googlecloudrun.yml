@@ -45,4 +45,4 @@ jobs:
           PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}
           APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_AUTH}}
         with:
-          args: run deploy fd-dispatch-api   --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
+          args: run deploy fd-dispatch-api   --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated  --update-env-vars ${{secrets.ENV_VARS}}
