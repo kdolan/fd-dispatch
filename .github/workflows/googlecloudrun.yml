@@ -31,12 +31,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client
           docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api
 
-      - name: Install beta commands and deploy client to cloud run
-        uses: actions/gcloud/cli@master
-        with:
-          args: "components install beta --quiet && gcloud beta run deploy fd-dispatch-client --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client --project ${{ secrets.GCLOUD_PROJECT }} --region us-central1 --platform managed --allow-unauthenticated"
-          
-      - name: Install beta commands and deploy api to cloud run
-        uses: actions/gcloud/cli@master
-        with:
-          args: "components install beta --quiet && gcloud beta run deploy fd-dispatch-api --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }} --region us-central1 --platform managed --allow-unauthenticated"
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy fd-dispatch-client   --image gcr.io/{{ secrets.GCLOUD_PROJECT }}/fd-dispatch-client --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
+          gcloud run deploy fd-dispatch-api   --image gcr.io/{{ secrets.GCLOUD_PROJECT }}/fd-dispatch-api --project ${{ secrets.GCLOUD_PROJECT }}  --platform managed   --region us-central1   --allow-unauthenticated
