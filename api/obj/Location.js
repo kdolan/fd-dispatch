@@ -1,8 +1,7 @@
 class Location{
-    constructor({geoJson, name, raw}){
+    constructor({geoJson, address,}){
         this.geoJson = geoJson;
-        this.name = name;
-        this.raw = raw;
+        this.address = address;
     }
 }
 

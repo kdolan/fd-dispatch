@@ -5,6 +5,7 @@ import rp from "request-promise-native"
 
 import CallInputs from "./CallInputs";
 import {NotificationManager} from 'react-notifications';
+import CallForm from "./CallForm";
 
 const DEFAULTS = {
     department: "Windham",
@@ -21,10 +22,17 @@ class CreateCall extends React.Component {
     state = DEFAULTS;
 
     createCall(){
+        const location = {
+            geoJson: {type: "Point", coordinates: [this.state.location.latitude, this.state.location.longitude]},
+            address: this.state.address
+        };
+        const call = this.state;
+        call.location = location;
+
         const options = {
             method: 'POST',
             uri: `${process.env.REACT_APP_API_ENDPOINT}/v1/calls`,
-            body: this.state,
+            body: call,
             json: true // Automatically stringifies the body to JSON
         };
 
@@ -39,39 +47,11 @@ class CreateCall extends React.Component {
             })
     }
 
-    handleChange(e){
-        const arg = {};
-        arg[e.target.name] = e.target.value;
-        this.setState(arg)
-    }
-
-    handleAddressSelect({address, location}){
-        console.log(address, location);
-        this.setState({address, location});
-    }
-
-    renderLeftCol() {
-        return (<Col lg={6}>
-            <CallInputs handleChange={(e) => this.handleChange(e)} call={this.state}/>
-        </Col>);
-    }
-
-    renderRightCol() {
-        return (<Col>
-            <Address call={this.state} handleAddressSelect={({address, location}) => this.handleAddressSelect({address, location})}  />
-        </Col>);
-    }
-
     render() {
         return (
             <div>
                 <h1>FD Dispatch - Create Call</h1>
-                <Form>
-                    <Row>
-                        {this.renderLeftCol()}
-                        {this.renderRightCol()}
-                    </Row>
-                </Form>
+                <CallForm call={this.state} handleCallUpdated={update => this.setState(update)} />
                 <Button color="primary" size="lg" onClick={() => this.createCall()}>Create Call</Button>
             </div>
         );
