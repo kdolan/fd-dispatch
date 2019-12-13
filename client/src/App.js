@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CreateCall from "./components/CreateCall";
+import CreateCall from "./organisims/CreateCall";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import {NotificationContainer} from 'react-notifications';
@@ -12,6 +12,7 @@ import {
     Link
 } from "react-router-dom";
 import NewCallPage from "./pages/NewCallPage";
+import CallsRoute from "./routes/CallsRoute";
 
 class App extends React.Component {
 
@@ -21,8 +22,13 @@ class App extends React.Component {
                 <div className="App">
                     <MuiPickersUtilsProvider utils={MomentUtils}>
                         <Switch>
+                            <Route path="/calls">
+                                <CallsRoute/>
+                            </Route>
                             <Route path="/">
-                                <NewCallPage/>
+                                <li>
+                                    <Link to="/calls">Calls</Link>
+                                </li>
                             </Route>
                         </Switch>
                         <NotificationContainer/>

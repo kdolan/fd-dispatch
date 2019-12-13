@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateCall from "../components/CreateCall";
+import CreateCall from "../organisims/CreateCall";
 import RecentCalls from "../components/RecentCalls";
 
 class NewCallPage extends React.Component {
@@ -8,7 +8,6 @@ class NewCallPage extends React.Component {
         return (
             <div >
                 <CreateCall/>
-                <RecentCalls/>
             </div>
         );
     }

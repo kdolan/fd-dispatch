@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import UnitsSelect from "./UnitsSelect";
 import rp from "request-promise-native";
 import {NotificationManager} from "react-notifications";
+import {Link} from "react-router-dom";
 
 class RecentCalls extends React.Component {
     state = {calls: []};
@@ -49,7 +50,7 @@ class RecentCalls extends React.Component {
                     {this.state.calls.map(call => {
                         return (
                             <tr>
-                                <th>{call.id}</th>
+                                <th><Link to={`/calls/${call.id}`}>{call.id}</Link></th>
                                 <td>{call.department}</td>
                                 <td>{call.type}</td>
                                 <td>{call.determinant}</td>

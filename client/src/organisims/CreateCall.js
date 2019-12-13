@@ -1,11 +1,11 @@
 import React from 'react';
 import {Form, Row, Col, FormGroup, Label, Input, Button} from "reactstrap";
-import Address from "./Address";
+import Address from "../components/Address";
 import rp from "request-promise-native"
 
-import CallInputs from "./CallInputs";
+import CallInputs from "../components/CallInputs";
 import {NotificationManager} from 'react-notifications';
-import CallForm from "./CallForm";
+import CallForm from "../components/CallForm";
 
 const DEFAULTS = {
     department: "Windham",
