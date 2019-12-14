@@ -14,8 +14,13 @@ controller.getCallsRoute = function (req, res) {
         })
 };
 
-controller.getCall = function (req, res) {
-    callsStore.getCallById(req.query.callId)
+controller.getCallRoute = function (req, res) {
+    const callId = req.params.callId;
+    if(!callId){
+        res.status(400).json({message: "Invalid callId"});
+        return;
+    }
+    callsStore.getCallById(callId)
         .then(call => {
             res.json(call);
         })
@@ -39,10 +44,17 @@ controller.insertCallRoute = function (req, res) {
 
 controller.updateCallRoute = function (req, res) {
     const call = new Call(req.body);
+
+    //TODO Move to domain
     if(!call.id){
         res.status(400).json({message: "No call.id"});
         return;
     }
+    if(call.id !== req.params.callId){
+        res.status(400).json({message: "call.id mismatch"});
+        return;
+    }
+
     callsStore.updateCall(call)
         .then(result => {
             res.status(200).json(call);

@@ -20,7 +20,7 @@ async function createCall(call) {
 async function updateCall(call) {
     if(!(call instanceof Call))
         throw new Error("Must be instanceof Call");
-    const dbRes = await callsCollection.updateOne({_id: new ObjectId(call.id)}, call.getForDb());
+    const dbRes = await callsCollection.updateOne({_id: new ObjectId(call.id)}, {$set: call.getForDb()});
     console.log(`Updated call with ID ${call.id}`);
     return call;
 }

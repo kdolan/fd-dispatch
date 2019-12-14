@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import EditCall from "../organisims/EditCall";
 import RecentCalls from "../components/RecentCalls";
-import NewCallPage from "../pages/NewCallPage";
+import CreateCall from "../organisims/CreateCall";
 
 function CallsRoute() {
     let match = useRouteMatch();
@@ -16,11 +16,8 @@ function CallsRoute() {
     return (
         <div>
             <Switch>
-                <Route path={`${match.path}/:callId`} component={EditCall}>
-                </Route>
-                <Route path="/">
-                    <NewCallPage/>
-                </Route>
+                <Route path={`${match.path}/:callId`} component={EditCall}/>
+                <Route path="/" component={CreateCall}/>
             </Switch>
             <RecentCalls/>
         </div>);

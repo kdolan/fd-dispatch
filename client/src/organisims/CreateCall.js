@@ -13,8 +13,7 @@ const DEFAULTS = {
     dateTime: new Date(),
     determinant: "N/A",
     units: [],
-    location: null,
-    address: "",
+    location: {address: "", geoJson: null},
     notes: ""
 };
 
@@ -22,13 +21,7 @@ class CreateCall extends React.Component {
     state = DEFAULTS;
 
     createCall(){
-        const location = {
-            geoJson: {type: "Point", coordinates: [this.state.location.latitude, this.state.location.longitude]},
-            address: this.state.address
-        };
         const call = this.state;
-        call.location = location;
-
         const options = {
             method: 'POST',
             uri: `${process.env.REACT_APP_API_ENDPOINT}/v1/calls`,
@@ -52,7 +45,7 @@ class CreateCall extends React.Component {
             <div>
                 <h1>FD Dispatch - Create Call</h1>
                 <CallForm call={this.state} handleCallUpdated={update => this.setState(update)} />
-                <Button color="primary" size="lg" onClick={() => this.createCall()}>Create Call</Button>
+                <Button color="success" size="lg" onClick={() => this.createCall()}>Create Call</Button>
             </div>
         );
     }

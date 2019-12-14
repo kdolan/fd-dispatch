@@ -15,8 +15,8 @@ class CallForm extends React.Component {
         this.props.handleCallUpdated(arg);
     }
 
-    handleAddressSelect({address, location}){
-        this.props.handleCallUpdated({address, location});
+    handleAddressSelect(locationObj){
+        this.props.handleCallUpdated({location: locationObj});
     }
 
     renderLeftCol() {
@@ -27,7 +27,7 @@ class CallForm extends React.Component {
 
     renderRightCol() {
         return (<Col>
-            <Address call={this.props.call} handleAddressSelect={({address, location}) => this.handleAddressSelect({address, location})}  />
+            <Address call={this.props.call} handleAddressSelect={(locationObj) => this.handleAddressSelect(locationObj)}  />
         </Col>);
     }
 

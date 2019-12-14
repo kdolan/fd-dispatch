@@ -11,7 +11,6 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import NewCallPage from "./pages/NewCallPage";
 import CallsRoute from "./routes/CallsRoute";
 
 class App extends React.Component {

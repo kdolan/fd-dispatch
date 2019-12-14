@@ -27,6 +27,10 @@ class EditCall extends React.Component {
             })
     }
 
+    componentDidMount() {
+        this.getCall();
+    }
+
     componentDidUpdate(prevProps) {
         if (this.callId !== prevProps.match.params.callId) {
             this.getCall();
@@ -34,13 +38,7 @@ class EditCall extends React.Component {
     }
 
     updateCall(){
-        const location = {
-            geoJson: {type: "Point", coordinates: [this.state.location.latitude, this.state.location.longitude]},
-            address: this.state.address
-        };
         const call = this.state;
-        call.location = location;
-
         const options = {
             method: 'PUT',
             uri: `${process.env.REACT_APP_API_ENDPOINT}/v1/calls/${this.callId}`,
@@ -63,8 +61,8 @@ class EditCall extends React.Component {
     }
 
     render() {
-        if(this.state.id)
-            return "";
+        if(!this.state.id)
+            return <h1>Loading Call {this.callId}</h1>;
         return (
             <div>
                 <h1>FD Dispatch - Edit Call {this.callId}</h1>

@@ -12,14 +12,18 @@ const mapStyles = {
 
 class Address extends React.Component {
     handleAddressSelect({address, location}){
-        this.props.handleAddressSelect({address, location});
+        const locationObj = {
+            geoJson: {type: "Point", coordinates: [location.latitude,location.longitude]},
+            address: address
+        };
+        this.props.handleAddressSelect(locationObj);
     }
 
     getMarker(){
         const call = this.props.call;
-        if(!call.location)
+        if(!call.location.geoJson)
             return null;
-        return <Marker position={{lat: call.location.latitude, lng: call.location.longitude}} title={call.address}/>
+        return <Marker position={{lat: call.location.geoJson.coordinates[0], lng: call.location.geoJson.coordinates[1]}} title={call.address}/>
     }
 
     render() {
@@ -30,17 +34,18 @@ class Address extends React.Component {
                     <LocationSearchInput onSelect={({address, location}) => this.handleAddressSelect({address, location})}/>
                 </Row>
                 <Row>
-                    Address: {call.address}
+                    Address: {call.location.address}
                 </Row>
                 <Row>
                     <div style={{height: "50px"}}>
+                        {(call.location.geoJson || !call.id) &&
                         <Map
                             google={this.props.google}
                             zoom={12}
                             initialCenter={{lat: 42.8006441, lng: -71.3042}}
                         >
                             {this.getMarker()}
-                        </Map>
+                        </Map> }
                     </div>
                 </Row>
             </div>
