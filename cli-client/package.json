@@ -9,6 +9,7 @@
   "author": "Kevin J Dolan",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.0.0",
     "commander": "^5.1.0",
     "dotenv": "^8.2.0",
     "request": "^2.88.2",

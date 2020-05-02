@@ -1,4 +1,5 @@
 const rp = require('request-promise');
+const chalk = require('chalk');
 const Call = require('../api/obj/Call').Call;
 
 const { Command } = require('commander');
@@ -9,42 +10,41 @@ const API_BASE_URL = process.env.NODE_ENV === "local_dev" ? "http://localhost:30
 const CLIENT_BASE_URL = process.env.NODE_ENV === "local_dev" ? "http://localhost:2999" : "https://fd-dispatch.kevinjdolan.com";
 
 program
-    .option('-a, --amr', 'amr audio path' )
-    .option('-w, --wav', 'wav audio path' )
-    .option('-m, --mp3', 'mp3 audio path' )
-    .option('-d, --descrip', 'tone description' )
-    .option('-t, --time', 'time of detection' );
-
-console.log('Arguments');
-if(program.amr)
-    console.log(`  AMR Path: ${program.amr}`);
-if(program.wav)
-    console.log(`  WAV Path: ${program.amr}`);
-if(program.mp3)
-    console.log(`  MP3 Path: ${program.amr}`);
-if(program.descrip)
-    console.log(`  Description: ${program.amr}`);
-if(program.time)
-    console.log(`  Time: ${program.amr}`);
-console.log('\/r\/n');
+    .option('-a, --amr <path>', 'amr audio path' )
+    .option('-w, --wav <path>', 'wav audio path' )
+    .option('-m, --mp3 <path>', 'mp3 audio path' )
+    .option('-d, --descrip <descrip>', 'tone description' )
+    .option('-t, --time <time>', 'time of detection' );
 
 program
     .command('create').description('Create a new call')
     .action(async (source, destinaton) => {
-        console.log("Creating new call...");
+        console.log(chalk.blue("Creating new call..."));
         try {
             const call = await createCall();
-            console.log(`New Call Created - ID: ${call.id}, Date Time: ${call.dateTime.toLocaleTimeString()}, URL: ${CLIENT_BASE_URL}/calls/${call.id}`);
+            console.log(chalk.blue(`New Call Created - ID: ${call.id}, Date Time: ${call.dateTime.toLocaleTimeString()}, URL: ${CLIENT_BASE_URL}/calls/${call.id}`));
             return call;
         }
         catch (err) {
-            console.error(`Failed To Create Call`);
+            console.error(chalk.red(`Failed To Create Call`));
             console.error(err.stack);
             process.exit(1);
         }
     });
 
 program.parse(process.argv);
+
+console.log(chalk.blue('Arguments'));
+if(program.amr)
+    console.log(chalk.blue(`  AMR Path: ${program.amr}`));
+if(program.wav)
+    console.log(chalk.blue(`  WAV Path: ${program.amr}`));
+if(program.mp3)
+    console.log(chalk.blue(`  MP3 Path: ${program.amr}`));
+if(program.descrip)
+    console.log(chalk.blue(`  Description: ${program.amr}`));
+if(program.time)
+    console.log(chalk.blue(`  Time: ${program.amr}`));
 
 async function createCall() {
     const options = {
@@ -55,7 +55,8 @@ async function createCall() {
             "content-type": "application/json"
         },
         body: {
-            department: "Windham"
+            department: "Windham",
+            type: "Medical"
         },
         json: true
     };
