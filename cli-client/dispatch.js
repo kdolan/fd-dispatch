@@ -8,6 +8,25 @@ program.version('0.0.1');
 const API_BASE_URL = process.env.NODE_ENV === "local_dev" ? "http://localhost:3000" : "https://fd-dispatch-api.kevinjdolan.com";
 const CLIENT_BASE_URL = process.env.NODE_ENV === "local_dev" ? "http://localhost:2999" : "https://fd-dispatch.kevinjdolan.com";
 
+program
+    .option('-a, --amr', 'amr audio path' )
+    .option('-w, --wav', 'wav audio path' )
+    .option('-m, --mp3', 'mp3 audio path' )
+    .option('-d, --descrip', 'tone description' )
+    .option('-t, --time', 'time of detection' );
+
+console.log('Arguments');
+if(program.amr)
+    console.log(`  AMR Path: ${program.amr}`);
+if(program.wav)
+    console.log(`  WAV Path: ${program.amr}`);
+if(program.mp3)
+    console.log(`  MP3 Path: ${program.amr}`);
+if(program.descrip)
+    console.log(`  Description: ${program.amr}`);
+if(program.time)
+    console.log(`  Time: ${program.amr}`);
+console.log('\/r\/n');
 
 program
     .command('create').description('Create a new call')
