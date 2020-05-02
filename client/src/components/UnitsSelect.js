@@ -17,6 +17,7 @@ const DEFAULT_UNITS = [
     { value: 'WFD C3', label: 'WFD C3' },
     { value: 'WFD F1', label: 'WFD F1' },
     { value: 'WFD U1', label: 'WFD U1' },
+    { value: 'WFD Rescue 1', label: 'WFD Rescue 1' },
 ];
 
 

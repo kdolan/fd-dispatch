@@ -34,11 +34,11 @@ class Address extends React.Component {
                     <LocationSearchInput onSelect={({address, location}) => this.handleAddressSelect({address, location})}/>
                 </Row>
                 <Row>
-                    Address: {call.location.address}
+                    Address: {call?.location?.address}
                 </Row>
                 <Row>
                     <div style={{height: "50px"}}>
-                        {(call.location.geoJson || !call.id) &&
+                        {(call?.location?.geoJson || !call.id) &&
                         <Map
                             google={this.props.google}
                             zoom={12}

@@ -31,6 +31,11 @@ class RecentCalls extends React.Component {
         this.getCalls();
     }
 
+    getTime(call){
+        const date = new Date(call.dateTime);
+        return `${date.getHours()}:${date.getMinutes()}`
+    }
+
     render() {
         if(this.state.calls.length === 0)
             return "";
@@ -54,8 +59,8 @@ class RecentCalls extends React.Component {
                                 <td>{call.department}</td>
                                 <td>{call.type}</td>
                                 <td>{call.determinant}</td>
-                                <td>{call.location.address}</td>
-                                <td>{new Date(call.dateTime).toLocaleDateString()}</td>
+                                <td>{call?.location?.address}</td>
+                                <td>{new Date(call.dateTime).toLocaleDateString()} {this.getTime(call)}</td>
                             </tr>);
                     })}
 

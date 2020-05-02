@@ -26,7 +26,7 @@ async function updateCall(call) {
 }
 
 async function getCalls(query={}) {
-    const calls = await callsCollection.find(query).toArray();
+    const calls = await callsCollection.find(query).sort({dateTime: -1}).toArray();
     console.log(`Fetched ${calls.length} calls`);
     return objArrayFromMongo(calls);
 }
