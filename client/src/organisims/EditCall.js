@@ -63,11 +63,13 @@ class EditCall extends React.Component {
     render() {
         if(!this.state.id)
             return <h1>Loading Call {this.callId}</h1>;
+
+        const button = <Button color="primary" size="lg" onClick={() => this.updateCall()}>Update Call</Button>;
+
         return (
             <div>
                 <h1>FD Dispatch - Edit Call {this.callId}</h1>
-                {<CallForm call={this.state} handleCallUpdated={update => this.setState(update)} />}
-                <Button color="primary" size="lg" onClick={() => this.updateCall()}>Update Call</Button>
+                {<CallForm call={this.state} handleCallUpdated={update => this.setState(update)} button={button} />}
             </div>
         );
     }

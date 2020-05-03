@@ -41,11 +41,12 @@ class CreateCall extends React.Component {
     }
 
     render() {
+        const button = <Button color="success" size="lg" onClick={() => this.createCall()}>Create Call</Button>;
+
         return (
             <div>
                 <h1>FD Dispatch - Create Call</h1>
-                <CallForm call={this.state} handleCallUpdated={update => this.setState(update)} />
-                <Button color="success" size="lg" onClick={() => this.createCall()}>Create Call</Button>
+                <CallForm call={this.state} handleCallUpdated={update => this.setState(update)} button={button} />
             </div>
         );
     }

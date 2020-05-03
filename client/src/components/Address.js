@@ -36,12 +36,13 @@ class Address extends React.Component {
                 <Row>
                     Address: {call?.location?.address}
                 </Row>
-                <Row>
-                    <div style={{height: "50px"}}>
+                <Row style={{height: "50px"}}>
+                    <div className="d-none d-lg-block">
                         {(call?.location?.geoJson || !call.id) &&
                         <Map
                             google={this.props.google}
                             zoom={12}
+                            style={{}}
                             initialCenter={{lat: 42.8006441, lng: -71.3042}}
                         >
                             {this.getMarker()}

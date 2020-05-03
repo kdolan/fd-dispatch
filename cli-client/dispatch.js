@@ -38,13 +38,13 @@ console.log(chalk.blue('Arguments'));
 if(program.amr)
     console.log(chalk.blue(`  AMR Path: ${program.amr}`));
 if(program.wav)
-    console.log(chalk.blue(`  WAV Path: ${program.amr}`));
+    console.log(chalk.blue(`  WAV Path: ${program.wav}`));
 if(program.mp3)
-    console.log(chalk.blue(`  MP3 Path: ${program.amr}`));
+    console.log(chalk.blue(`  MP3 Path: ${program.mp3}`));
 if(program.descrip)
-    console.log(chalk.blue(`  Description: ${program.amr}`));
+    console.log(chalk.blue(`  Description: ${program.descrip}`));
 if(program.time)
-    console.log(chalk.blue(`  Time: ${program.amr}`));
+    console.log(chalk.blue(`  Time: ${program.time}`));
 
 async function createCall() {
     const options = {
@@ -56,7 +56,8 @@ async function createCall() {
         },
         body: {
             department: "Windham",
-            type: "Medical"
+            type: "Medical",
+            determinant: "N/A"
         },
         json: true
     };

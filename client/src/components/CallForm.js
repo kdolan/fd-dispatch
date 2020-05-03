@@ -34,9 +34,12 @@ class CallForm extends React.Component {
     render() {
         return (
                 <Form>
-                    <Row>
+                    <Row >
                         {this.renderLeftCol()}
                         {this.renderRightCol()}
+                    </Row>
+                    <Row style={{"margin-left": 0}}>
+                        {this.props.button}
                     </Row>
                 </Form>
         );
